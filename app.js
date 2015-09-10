@@ -41,5 +41,5 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 
 app.get('/', function(req, res){
-  res.send('ok');
+  res.render('home/index');
 });
