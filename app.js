@@ -53,6 +53,15 @@ app.post('/square', function(req, res){
   res.render('math/square', {square: square});
 });
 
+app.get('/root', function(req, res){
+  res.render('math/root', {root: null});
+});
+
+app.post('/root', function(req, res){
+  var root = Math.sqrt(req.body.x);
+  res.render('math/root', {root: root});
+});
+
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
