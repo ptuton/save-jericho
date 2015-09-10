@@ -18,7 +18,10 @@ app.use(morgan('dev'));
 
 var appEnv = cfenv.getAppEnv();
 app.listen(appEnv.port, function() {
+  console.log('**************************');
+  console.log('env variables', process.env);
   console.log('server starting on', appEnv);
+  console.log('**************************');
 });
 
 /* ----------------------------------------------------------------------------------------- */
