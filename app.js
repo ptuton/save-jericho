@@ -41,6 +41,20 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.get('/define', function(req, res){
+  res.render('api/define', {definitions: []});
+});
+
+app.post('/define', function(req, res){
+  // These code snippets use an open-source library.
+  unirest.get("https://montanaflynn-dictionary.p.mashape.com/define?word=" + req.body.word)
+  .header("X-Mashape-Key", "PvfARJLwFCmshwLDmEmAMU6gJcgPp1OyYJJjsnqb6rHkwPrgNO")
+  .header("Accept", "application/json")
+  .end(function (result) {
+    res.render('api/define', {definitions: result.body.definitions});
+  });
+});
+
 app.get('/yoda', function(req, res){
   res.render('api/yoda', {translated: null});
 });

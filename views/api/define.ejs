@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bluemixer::Define</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/define">Define</a></li>
+    </ul>
+    <h1>Word Definitions!</h1>
+    <form method="post" action="/define">
+      <input type="text" name="word"/>
+      <button>Define</button>
+    </form>
+
+    <ul>
+      <% for(var i = 0; i < definitions.length; i++) { %>
+        <li><%= definitions[i].text %></li>
+      <% } %>
+    </ul>
+
+  </body>
+</html>
