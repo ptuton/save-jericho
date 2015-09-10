@@ -1,5 +1,5 @@
 {
-  "name": "bluemix1",
+  "name": "ca-101-bluemixer-chyld",
   "version": "0.0.1",
   "scripts": {
     "start": "node app.js"
