@@ -5,6 +5,7 @@ var multer = require('multer');
 var request = require('request');
 var methodOverride = require('method-override');
 var morgan = require('morgan');
+var unirest = require('unirest');
 
 var app = express();
 app.set('view engine', 'ejs');
@@ -39,6 +40,20 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
+
+app.get('/yoda', function(req, res){
+  res.render('api/yoda', {translated: null});
+});
+
+app.post('/yoda', function(req, res){
+  // These code snippets use an open-source library.
+  unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + req.body.phrase)
+  .header("X-Mashape-Key", "PvfARJLwFCmshwLDmEmAMU6gJcgPp1OyYJJjsnqb6rHkwPrgNO")
+  .header("Accept", "text/plain")
+  .end(function (result) {
+    res.render('api/yoda', {translated: result.body});
+  });
+});
 
 app.get('/', function(req, res){
   res.render('home/index');
