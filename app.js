@@ -43,3 +43,16 @@ if (appEnv.isLocal) {
 app.get('/', function(req, res){
   res.render('home/index');
 });
+
+app.get('/square', function(req, res){
+  res.render('math/square', {square: null});
+});
+
+app.post('/square', function(req, res){
+  var square = req.body.x * req.body.x;
+  res.render('math/square', {square: square});
+});
+
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
