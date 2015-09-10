@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bluemixer::Tax</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tax">Tax</a></li>
+    </ul>
+    <h1>Tax Collector</h1>
+    <form method="post" action="/tax">
+      <input type="text" name="amount"/>
+      <select name="state">
+        <option>CA</option>
+        <option>TX</option>
+        <option>NY</option>
+      </select>
+      <button>Calculate</button>
+    </form>
+    <h5>Amount: $<%= amount %></h5>
+    <h5>Collected: $<%= collected %></h5>
+    <h5>Total $<%= total %></h5>
+  </body>
+</html>

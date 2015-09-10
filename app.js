@@ -44,6 +44,29 @@ app.get('/', function(req, res){
   res.render('home/index');
 });
 
+app.get('/tax', function(req, res){
+  res.render('math/tax', {amount: null, collected: null, total: null});
+});
+
+app.post('/tax', function(req, res){
+  var amount = req.body.amount * 1;
+  var tax;
+  switch(req.body.state){
+    case 'CA':
+      tax = 0.20;
+      break;
+    case 'TX':
+      tax = 0.05;
+      break;
+    case 'NY':
+      tax = 0.30;
+  }
+
+  var collected = amount * tax;
+  var total = amount + collected;
+  res.render('math/tax', {amount: amount.toFixed(2), collected: collected.toFixed(2), total: total.toFixed(2)});
+});
+
 app.get('/square', function(req, res){
   res.render('math/square', {square: null});
 });
