@@ -43,6 +43,20 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.get('/weather', function(req, res){
+  res.render('api/weather', {forecast: []});
+});
+
+app.post('/weather', function(req, res){
+  // These code snippets use an open-source library.
+  unirest.get("https://george-vustrey-weather.p.mashape.com/api.php?location=" + req.body.city)
+  .header("X-Mashape-Key", process.env.MASHAPE)
+  .header("Accept", "application/json")
+  .end(function (result) {
+    res.render('api/weather', {forecast: result.body});
+  });
+});
+
 app.get('/define', function(req, res){
   res.render('api/define', {definitions: []});
 });

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bluemixer::Weather</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/weather">Weather</a></li>
+    </ul>
+    <h1>Weather Forecast</h1>
+    <form method="post" action="/weather">
+      <input type="text" name="city"/>
+      <button>Get Weather</button>
+    </form>
+
+    <ol>
+      <% for(var i = 0; i < forecast.length; i++) { %>
+        <li>
+          <ul>
+            <li><%= forecast[i].day_of_week %></li>
+            <li><%= forecast[i].high %></li>
+            <li><%= forecast[i].low %></li>
+            <li><%= forecast[i].condition %></li>
+          </ul>
+        </li>
+      <% } %>
+    </ol>
+
+  </body>
+</html>
