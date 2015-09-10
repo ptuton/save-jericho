@@ -50,7 +50,7 @@ app.get('/define', function(req, res){
 app.post('/define', function(req, res){
   // These code snippets use an open-source library.
   unirest.get("https://montanaflynn-dictionary.p.mashape.com/define?word=" + req.body.word)
-  .header("X-Mashape-Key", "PvfARJLwFCmshwLDmEmAMU6gJcgPp1OyYJJjsnqb6rHkwPrgNO")
+  .header("X-Mashape-Key", process.env.MASHAPE)
   .header("Accept", "application/json")
   .end(function (result) {
     res.render('api/define', {definitions: result.body.definitions});
@@ -64,7 +64,7 @@ app.get('/yoda', function(req, res){
 app.post('/yoda', function(req, res){
   // These code snippets use an open-source library.
   unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + req.body.phrase)
-  .header("X-Mashape-Key", "PvfARJLwFCmshwLDmEmAMU6gJcgPp1OyYJJjsnqb6rHkwPrgNO")
+  .header("X-Mashape-Key", process.env.MASHAPE)
   .header("Accept", "text/plain")
   .end(function (result) {
     res.render('api/yoda', {translated: result.body});
