@@ -1,0 +1,10 @@
+applications:
+- services:
+  disk_quota: 1024M
+  host: bluemix1
+  name: bluemix1
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 256M
+  buildpack: nodejs_buildpack
