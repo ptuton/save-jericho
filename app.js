@@ -43,6 +43,20 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.get('/location', function(req, res){
+  res.render('api/location');
+});
+
+app.post('/location', function(req, res){
+  // These code snippets use an open-source library.
+  unirest.get("https://montanaflynn-geocoder.p.mashape.com/reverse?latitude=" + req.body.latitude + "&longitude=" + req.body.longitude)
+  .header("X-Mashape-Key", process.env.MASHAPE)
+  .header("Accept", "application/json")
+  .end(function (result) {
+    res.send(result.body);
+  });
+});
+
 app.get('/weather', function(req, res){
   res.render('api/weather', {forecast: []});
 });
