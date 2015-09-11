@@ -1,5 +1,7 @@
 applications:
-- disk_quota: 1024M
+- services:
+  - Cloudant NoSQL DB-uj
+  disk_quota: 1024M
   host: ca-101-bluemixer-chyld
   name: ca-101-bluemixer-chyld
   path: .

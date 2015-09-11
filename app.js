@@ -20,6 +20,7 @@ var appEnv = cfenv.getAppEnv();
 app.listen(appEnv.port, function() {
   console.log('**************************');
   console.log('server starting on', appEnv);
+  console.log('the dbUrl is', dbUrl);
   console.log('**************************');
 });
 
@@ -31,17 +32,51 @@ var dbUrl;
 
 if (appEnv.isLocal) {
   var credentials = require('./credentials.json');
-
-  // dbUrl = credentials.services.cloudantNoSQLDB[0].credentials.url;
+  dbUrl = credentials.services.cloudantNoSQLDB[0].credentials.url;
 } else {
-  var x;
-
-  // dbUrl = appEnv.services.cloudantNoSQLDB[0].credentials.url;
+  dbUrl = appEnv.services.cloudantNoSQLDB[0].credentials.url;
 }
 
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
+
+app.get('/album', function(req, res){
+  var o = {
+   uri: dbUrl + '/photos/_all_docs?include_docs=true',
+   method: 'get',
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.render('db/album', {rows: body.rows});
+ });
+});
+
+app.delete('/album', function(req, res){
+  var o = {
+   uri: dbUrl + '/photos/' + req.body.id + '?rev=' + req.body.rev,
+   method: 'delete',
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.redirect('/album');
+ });
+});
+
+app.post('/album', function(req, res){
+  var o = {
+   uri: dbUrl + '/photos',
+   method: 'post',
+   body: req.body,
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.redirect('/album');
+ });
+});
 
 app.get('/location', function(req, res){
   res.render('api/location');

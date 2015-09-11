@@ -1,0 +1,14 @@
+body{
+  background-color: pink;
+}
+
+.photo, img{
+  width: 200px;
+  height: 200px;
+}
+
+.photo{
+  display: inline-block;
+  margin: 25px;
+  border: 3px double red;
+}
