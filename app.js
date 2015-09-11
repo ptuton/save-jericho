@@ -41,6 +41,10 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.get('/map', function(req, res){
+  res.render('map/google');
+});
+
 app.post('/send-quote', function(req, res){
   var twSid = process.env.TWILIO_SID;
   var twTok = process.env.TWILIO_TOK;
