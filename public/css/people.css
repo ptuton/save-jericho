@@ -1,0 +1,25 @@
+body{
+  background-color: #7FDBFF;
+}
+
+.person{
+  width: 200px;
+  border: 1px solid #555555;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+}
+
+.person img{
+  width: 200px;
+  height: 200px;
+}
+
+#quote-box{
+  border: 1px sold #555555;
+  border-radius: 10px;
+  background-color: #FFDC00;
+  display: inline-block;
+  padding: 25px;
+  margin-bottom: 25px;
+}

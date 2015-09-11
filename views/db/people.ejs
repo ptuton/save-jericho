@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bluemixer::People</title>
+    <link rel="stylesheet" href="/css/people.css" />
+  </head>
+  <body>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/people">People</a></li>
+    </ul>
+    <h1><em>People Quote Messenger</em></h1>
+
+    <div id="quote-box">
+      <button id="get-quote">Get Quote</button>
+      <div id="quote"></div>
+      <div id="author"></div>
+    </div>
+
+    <form method="post" action="/people">
+      <input type="text" name="avatar" placeholder="avatar"/>
+      <input type="text" name="title" placeholder="title"/>
+      <input type="text" name="color" placeholder="color"/>
+      <input type="text" name="phone" placeholder="phone"/>
+      <button>Add Person</button>
+    </form>
+
+    <% for(var i = 0; i < rows.length; i++) { %>
+      <div class="person" style="background-color: <%= rows[i].doc.color %>;">
+        <img src="<%= rows[i].doc.avatar %>" />
+        <div class="title"><%= rows[i].doc.title %></div>
+        <div class="phone"><%= rows[i].doc.phone %></div>
+        <form method="post" action="/people?_method=delete">
+          <input type="hidden" name="id" value="<%= rows[i].doc._id %>" />
+          <input type="hidden" name="rev" value="<%= rows[i].doc._rev %>" />
+          <button>x</button>
+        </form>
+        <button class="send-sms">Send Quote</button>
+      </div>
+    <% } %>
+
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/quote.js"></script>
+  </body>
+</html>

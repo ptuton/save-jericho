@@ -41,6 +41,75 @@ if (appEnv.isLocal) {
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.post('/send-quote', function(req, res){
+  var twSid = process.env.TWILIO_SID;
+  var twTok = process.env.TWILIO_TOK;
+  var toNumber = req.body.phone;
+  var fromNumber = '+1 917-746-1483';
+  var quote = req.body.quote;
+
+  var client = require('twilio')(twSid, twTok);
+  client.sendMessage({
+      to: toNumber,
+      from: fromNumber,
+      body: quote
+    }, function(err, responseData){
+      res.send();
+    });
+});
+
+app.post('/quote', function(req, res){
+  // These code snippets use an open-source library. http://unirest.io/nodejs
+  unirest.post("https://andruxnet-random-famous-quotes.p.mashape.com/cat=movies")
+  .header("X-Mashape-Key", process.env.MASHAPE)
+  .header("Content-Type", "application/x-www-form-urlencoded")
+  .header("Accept", "application/json")
+  .end(function (result) {
+    res.send(result.body);
+  });
+});
+
+app.get('/people', function(req, res){
+  var o = {
+   uri: dbUrl + '/people/_all_docs?include_docs=true',
+   method: 'get',
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.render('db/people', {rows: body.rows});
+ });
+});
+
+app.delete('/people', function(req, res){
+  var o = {
+   uri: dbUrl + '/people/' + req.body.id + '?rev=' + req.body.rev,
+   method: 'delete',
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.redirect('/people');
+ });
+});
+
+app.post('/people', function(req, res){
+  var o = {
+   uri: dbUrl + '/people',
+   method: 'post',
+   body: req.body,
+   json: true
+ };
+
+ request(o, function(err, response, body){
+   res.redirect('/people');
+ });
+});
+
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
+
 app.get('/album', function(req, res){
   var o = {
    uri: dbUrl + '/photos/_all_docs?include_docs=true',
@@ -77,6 +146,10 @@ app.post('/album', function(req, res){
    res.redirect('/album');
  });
 });
+
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------- */
 
 app.get('/location', function(req, res){
   res.render('api/location');
