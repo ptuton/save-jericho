@@ -30,14 +30,7 @@ module.exports = server;
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
-var dbUrl;
-
-if (appEnv.isLocal) {
-  var credentials = require('./credentials.json');
-  dbUrl = credentials.services.cloudantNoSQLDB[0].credentials.url;
-} else {
-  dbUrl = appEnv.services.cloudantNoSQLDB[0].credentials.url;
-}
+var dbUrl = process.env.DBURL;
 
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
