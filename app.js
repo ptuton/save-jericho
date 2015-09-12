@@ -17,12 +17,14 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 
 var appEnv = cfenv.getAppEnv();
-app.listen(appEnv.port, function() {
+var server = app.listen(appEnv.port, function() {
   console.log('**************************');
   console.log('server starting on', appEnv);
   console.log('the dbUrl is', dbUrl);
   console.log('**************************');
 });
+
+module.exports = server;
 
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
