@@ -33,6 +33,17 @@ module.exports = server;
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.delete('/photos', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/photos/' + req.body._id + '?rev=' + req.body._rev,
+    method: 'delete',
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.redirect('/photos');
+  });
+});
+
 app.get('/photos', function(req, res){
   var o = {
     uri: process.env.CLOUDANT + '/photos/_all_docs?include_docs=true',
