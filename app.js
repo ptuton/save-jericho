@@ -33,6 +33,52 @@ module.exports = server;
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.put('/people/:id', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/people/' + req.params.id,
+    method: 'put',
+    body: req.body,
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.send(body);
+  });
+});
+
+app.get('/people/:id', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/people/' + req.params.id,
+    method: 'get',
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.render('person', body);
+  });
+});
+
+app.get('/people', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/people/_all_docs?include_docs=true',
+    method: 'get',
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.render('people', body);
+  });
+});
+
+app.post('/people', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/people',
+    method: 'post',
+    body: req.body,
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.redirect('/people');
+  });
+});
+
 app.delete('/photos', function(req, res){
   var o = {
     uri: process.env.CLOUDANT + '/photos/' + req.body._id + '?rev=' + req.body._rev,

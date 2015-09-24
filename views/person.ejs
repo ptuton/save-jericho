@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>Omega/Chyld</title>
+</head>
+<body>
+  <h1>Omega/Chyld</h1>
+  <h2>People</h2>
+  <ul>
+    <li><a href="/">Home Page</a></li>
+    <li><a href="/people">People</a></li>
+  </ul>
+  <h1 id="name" data-id="<%= _id %>" data-rev="<%= _rev %>"><%= name %></h1>
+  <input id="phone" type="text" name="phone" value="<%= locals.phone || '' %>" />
+  <button id="cam-on">Turn on WebCam</button>
+  <button id="cam-off">Turn off WebCam</button>
+  <button id="snap">Snap</button>
+  <button id="update">Update Document</button>
+  <input id="message" type="text" name="message" />
+  <button id="sms">Send Message</button>
+  <div></div>
+  <img id="photo" src="<%= locals.photo || '' %>" />
+  <div id="camera" style="width:320px; height:240px;"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="/js/webcam.min.js"></script>
+  <script src="/js/person.js"></script>
+</body>
+</html>
