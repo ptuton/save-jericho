@@ -33,8 +33,40 @@ module.exports = server;
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.get('/photos', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/photos/_all_docs?include_docs=true',
+    method: 'get',
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.render('photos', body);
+  });
+});
+
+app.post('/photos', function(req, res){
+  var o = {
+    uri: process.env.CLOUDANT + '/photos',
+    method: 'post',
+    body: req.body,
+    json: true
+  };
+  request(o, function(err, response, body){
+    res.redirect('/photos');
+  });
+});
+
 app.get('/', function(req, res){
-  res.send('ok');
+  res.render('home');
+});
+
+app.get('/trip', function(req, res){
+  res.render('trip', {cost: 0});
+});
+
+app.post('/trip', function(req, res){
+  var cost = (req.body.distance / req.body.mpg) * req.body.cost;
+  res.render('trip', {cost: cost});
 });
 
 /* ----------------------------------------------------------------------------------------- */

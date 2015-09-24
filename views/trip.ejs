@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <title>Omega/Chyld</title>
+</head>
+<body>
+  <h1>Omega/Chyld</h1>
+  <h2>Trip Calculator</h2>
+  <ul>
+    <li><a href="/">Home Page</a></li>
+    <li><a href="/trip">Trip Calculator</a></li>
+  </ul>
+  <form method="post" action="/trip">
+    <input type="text" name="cost" placeholder="cost" />
+    <input type="text" name="mpg" placeholder="mpg" />
+    <input type="text" name="distance" placeholder="distance" />
+    <button>Calculate</button>
+  </form>
+  <div>$<%= cost.toFixed(2) %></div>
+</body>
+</html>

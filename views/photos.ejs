@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <title>Omega/Chyld</title>
+  <link rel="stylesheet" href="/css/photos.css" />
+</head>
+<body>
+  <h1>Omega/Chyld</h1>
+  <h2>Photos</h2>
+  <ul>
+    <li><a href="/">Home Page</a></li>
+    <li><a href="/photos">Photos</a></li>
+  </ul>
+  <form action="/photos" method="post">
+    <input type="url" name="url" />
+    <input type="text" name="title" />
+    <button>Add Photo</button>
+  </form>
+  <% for(var i = 0; i < rows.length; i++) { %>
+    <div class="photo">
+      <img src="<%= rows[i].doc.url %>" />
+      <div class="title"><%= rows[i].doc.title %></div>
+    </div>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body{
+  background-color: #FFDC00;
+}
+
+.photo{
+  background-color: #7FDBFF;
+  border: 2px solid #111111;
+  display: inline-block;
+  margin: 25px;
+  border-radius: 10px;
+}
+
+.photo img{
+  width: 300px;
+  height: 200px;
+}
+
+.title{
+  font-size: 20px;
+  padding: 10px;
+}
