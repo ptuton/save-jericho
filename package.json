@@ -14,7 +14,7 @@
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
     "request": "^2.61.0",
-    "twilio": "^2.3.0",
+    "twilio": "^2.4.0",
     "unirest": "^0.4.2"
   },
   "devDependencies": {

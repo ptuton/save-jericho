@@ -12,6 +12,22 @@ $('#snap').click(function(){
   });
 });
 
+$('#sms').click(function(){
+  var phone = $('#phone').val();
+  var message = $('#message').val();
+
+  $.ajax({
+    data: {phone: phone, message: message},
+    dataType: 'json',
+    method: 'post',
+    url: '/message',
+    success: function(response){
+      console.log(response);
+    }
+  });
+
+});
+
 $('#update').click(function(){
 
   var _id = $('#name').data('id');

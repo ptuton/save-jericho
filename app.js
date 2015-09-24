@@ -33,6 +33,23 @@ module.exports = server;
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
+app.post('/message', function(req, res){
+  var message = req.body.message;
+  var phone = req.body.phone;
+  var sid = process.env.TWILIO_SID;
+  var tok = process.env.TWILIO_TOK;
+
+  var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+  client.sendMessage({
+    to: phone,
+    from: '+1 917-746-1483',
+    body: message
+  }, function(err, responseData){
+    res.send(responseData);
+  });
+});
+
 app.put('/people/:id', function(req, res){
   var o = {
     uri: process.env.CLOUDANT + '/people/' + req.params.id,
