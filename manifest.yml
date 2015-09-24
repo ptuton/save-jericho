@@ -1,7 +1,7 @@
 applications:
 - disk_quota: 1024M
-  host: ca-101-template-firstname
-  name: ca-101-template-firstname
+  host: ca-101-omega-chyld
+  name: ca-101-omega-chyld
   path: .
   domain: mybluemix.net
   instances: 1
