@@ -1,9 +1,9 @@
 applications:
 - services:
-  - Cloudant NoSQL DB-ay
+  - pt-sensortag-cloudantNoSQLDB
   disk_quota: 1024M
-  host: ca-101-omega-chyld
-  name: ca-101-omega-chyld
+  host: save-jericho
+  name: save-jericho
   path: .
   domain: mybluemix.net
   instances: 1
