@@ -30,19 +30,22 @@ $('#sms').click(function(){
 
 $('#update').click(function(){
 
+  // Grab the ranger's data
   var _id = $('#name').data('id');
   var _rev = $('#name').data('rev');
   var name = $('#name').text();
+  var mobile = $('#mobile').val();
+  var longitude = $('#longitude').val();
+  var latitude = $('#latitude').val();
   var photo = $('#photo').attr('src');
-  var phone = $('#phone').val();
 
   $.ajax({
-    data: {_id: _id, _rev: _rev, name: name, photo: photo, phone: phone},
+    data: {_id: _id, _rev: _rev, name: name, mobile: mobile, longitude: longitude, latitude: latitude, photo: photo},
     dataType: 'json',
     method: 'put',
-    url: '/people/' + _id,
+    url: '/ranger/' + _id,
     success: function(response){
-      console.log(response);
+      alert('Saved!');
     }
   });
 

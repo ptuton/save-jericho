@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <title>Save Cecil's Brother</title>
+  <style>
+        #map {
+          width: 500px;
+          height: 400px;
+        }
+  </style>
+</head>
+<body>
+  <h1>Ranger</h1>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/cecil-bro">Track Cecil's Brother</a></li>
+    <li><a href="/rangers">Rangers</a></li>
+  </ul>
+  <h1 id="name" data-id="<%= _id %>" data-rev="<%= _rev %>"><%= name %></h1>
+  <input id="mobile" type="text" name="mobile" placeholder="mobile" value="<%= locals.mobile || '' %>" />
+  <input id="latitude" type="text" name="latitude" placeholder="latitude" readonly value="<%= locals.latitude || '' %>" />
+  <input id="longitude" type="text" name="longitude" placeholder="longitude" readonly value="<%= locals.longitude || '' %>" />
+  <br><br>
+  <button id="cam-on">Turn on WebCam</button>
+  <button id="cam-off">Turn off WebCam</button>
+  <button id="snap">Snap</button>
+  <button id="update">Update</button>
+  <div id="map"></div>
+  <img id="photo" src="<%= locals.photo || '' %>" />
+  <div id="camera" style="width:320px; height:240px;"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="/js/getlocation.js"></script>
+  <script src="/js/webcam.min.js"></script>
+  <script src="/js/ranger.js"></script>
+  <script src="/js/setmap.js"></script>
+</body>
+</html>

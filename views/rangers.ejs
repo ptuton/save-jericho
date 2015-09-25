@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <title>Save Cecil's Brother</title>
+</head>
+<body>
+  <h1>Rangers</h1>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/cecil-bro">Track Cecil's Brother</a></li>
+    <li><a href="/rangers">Rangers</a></li>
+  </ul>
+  <form method="post" action="/rangers">
+    <input type="text" name="name" placeholder="name" />
+    <button>Register Ranger</button>
+  </form>
+  <% if (locals.rows){
+       for(var i = 0; i < rows.length; i++) { %>
+        <ul>
+          <li><a href="/ranger/<%= rows[i].doc._id %>"><%= rows[i].doc.name %></a></li>
+        </ul>
+      <% }
+    } %>
+</body>
+</html>
