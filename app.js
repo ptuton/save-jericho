@@ -53,7 +53,7 @@ app.post('/rangers', function(req, res){
   };
   request(o, function(err, response, body){
     console.log('body: ', body)
-    res.redirect('/ranger');
+    res.redirect('/rangers');
   });
 });
 
