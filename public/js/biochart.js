@@ -36,5 +36,5 @@ create_chart(data);
 function create_chart(data){
   //alert(data.datasets[0].label);
     var ctx = $("#gyroY").get(0).getContext("2d");
-    var chrtCecil_bro = new Chart(ctx).Line(data);
+    var chrtJericho = new Chart(ctx).Line(data);
 }

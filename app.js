@@ -80,8 +80,8 @@ app.put('/ranger/:id', function(req, res){
   });
 });
 
-app.get('/cecil-bro', function(req, res){
-  res.render('cecil-bro');
+app.get('/jericho', function(req, res){
+  res.render('jericho');
 });
 
 app.post('/biodata', function(req, res){
