@@ -21,6 +21,15 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 
 var appEnv = cfenv.getAppEnv();
+
+// Init Animals Cloudant database
+var dbAnimalsURL = "";
+if (process.env.VCAP_SERVICES) {
+  var env = JSON.parse(process.env.VCAP_SERVICES);
+  dbAnimalsURL = env.cloudantNoSQLDB[0].credentials.url + "/animals";
+}
+else dbAnimalsURL = "http://localhost:5984/animals";
+
 var server = app.listen(appEnv.port, function() {
   console.log('***********************************');
   console.log('listening:', appEnv.url);
@@ -85,12 +94,20 @@ app.get('/jericho', function(req, res){
 });
 
 app.post('/biodata', function(req, res){
+  var json_data = {
+    uri: 'https://41657966-6f0c-4a97-9750-15268f2138ac-bluemix:842467a167517a39db77b8cfe4ad5eefe047af67176fe337ad24190b479aa7c6@41657966-6f0c-4a97-9750-15268f2138ac-bluemix.cloudant.com/animals/00476a2b354918c86279ffcf5e0d4405',
+    method: 'get',
+    json: true
+  };
+
+  // Convert response to an array
+//  var data = {};
 
   var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["Hi!", "February", "March", "April", "May", "June", "July"],
     datasets: [
           {
-              label: "My First dataset",
+              label: "Ambient Temp",
               fillColor: "rgba(220,220,220,0.2)",
               strokeColor: "rgba(220,220,220,1)",
               pointColor: "rgba(220,220,220,1)",
@@ -100,7 +117,7 @@ app.post('/biodata', function(req, res){
               data: [65, 59, 80, 81, 56, 55, 40]
           },
           {
-              label: "My Second dataset",
+              label: "Humidity",
               fillColor: "rgba(151,187,205,0.2)",
               strokeColor: "rgba(151,187,205,1)",
               pointColor: "rgba(151,187,205,1)",
@@ -111,6 +128,7 @@ app.post('/biodata', function(req, res){
           }
         ]
     };
+
     console.log(data);
     res.send(data);
 });
