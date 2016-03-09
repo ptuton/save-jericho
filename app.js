@@ -35,14 +35,16 @@ module.exports = server;
 
 var cloudant;
 var dbCredentials = {
-	dbName : 'animals'
+	dbName: 'animals',
+  dbURL: ''
 };
 
-function initDBConnection() {
+function initDBConnection(){
 
-  if(process.env.VCAP_SERVICES) {
+  if(process.env.VCAP_SERVICES){
     // Set the dbURL from VCAP_SERVICES
     dbCredentials.dbURL = appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB");
+    console.log(dbCredentials.dbURL);
     // Init cloudant
     cloudant = require('cloudant')(dbCredentials.dbURL);
     // Use the database
@@ -60,15 +62,22 @@ initDBConnection();
 /* ----------------------------------------------------------------------------------------- */
 
 app.get('/rangers', function(req, res){
+/*
   var o = {
-    //uri: process.env.CLOUDANT + '/rangers/_all_docs?include_docs=true',
-    uri: dbCredentials.dbURL + '/rangers/_all_docs?include_docs=true',
+    uri: process.env.CLOUDANT + '/rangers/_all_docs?include_docs=true',
     method: 'get',
     json: true
   };
   request(o, function(err, response, body){
     res.render('rangers', body);
   });
+*/
+  db.list(function(err, response) {
+		if (!err) {
+			console.log(doc);
+      res.render('rangers', response);
+		}
+	});
 });
 
 app.post('/rangers', function(req, res){
