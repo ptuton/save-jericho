@@ -34,22 +34,25 @@ module.exports = server;
 // Init database
 
 var cloudant;
-var db;
-var dbCredentials = {
-	dbName: 'animals',
-  dbURL: ''
+var cloudantURL;
+var dbAnimals = {
+	dbName: 'animals'
 };
+var dbRangers = {
+  dbName: 'rangers'
+}
 
 function initDBConnection(){
 
   if(process.env.VCAP_SERVICES){
     // Set the dbURL from VCAP_SERVICES
-    dbCredentials.dbURL = appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB");
-    console.log(dbCredentials.dbURL);
+    cloudantURL = appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB");
+    console.log(cloudantURL);
     // Init cloudant
-    cloudant = require('cloudant')(dbCredentials.dbURL);
+    cloudant = require('cloudant')(cloudantURL);
     // Use the database
-    db = cloudant.db.use(dbCredentials.dbName);
+    dbAnimals.db = cloudant.db.use(dbAnimals.dbName);
+    dbRangers.db = cloudant.db.use(dbRangers.dbName);
   } else {
     // No VCAP_SERVICES...
     console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
@@ -73,7 +76,7 @@ app.get('/rangers', function(req, res){
     res.render('rangers', body);
   });
 */
-  db.list(function(err, response) {
+  dbRangers.list(function(err, response) {
 		if (!err) {
 			console.log(response);
       res.render('rangers', response);
