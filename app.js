@@ -80,7 +80,7 @@ app.get('/rangers', function(req, res){
     if (err) {
       throw err;
     }
-    console.log(response);
+    console.log(JSON.stringify(response));
     res.render('rangers', response);
 	});
 });
