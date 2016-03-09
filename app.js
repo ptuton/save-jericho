@@ -113,8 +113,7 @@ app.get('/jericho', function(req, res){
 
 app.post('/biodata', function(req, res){
   var json_data = {
-    //uri: 'https://41657966-6f0c-4a97-9750-15268f2138ac-bluemix:842467a167517a39db77b8cfe4ad5eefe047af67176fe337ad24190b479aa7c6@41657966-6f0c-4a97-9750-15268f2138ac-bluemix.cloudant.com/animals/00476a2b354918c86279ffcf5e0d4405',
-    uri: dbAnimalsURL,
+    uri: 'https://41657966-6f0c-4a97-9750-15268f2138ac-bluemix:842467a167517a39db77b8cfe4ad5eefe047af67176fe337ad24190b479aa7c6@41657966-6f0c-4a97-9750-15268f2138ac-bluemix.cloudant.com/animals/00476a2b354918c86279ffcf5e0d4405',
     method: 'get',
     json: true
   };
