@@ -22,14 +22,6 @@ app.use(morgan('dev'));
 
 var appEnv = cfenv.getAppEnv();
 
-// Init Animals Cloudant database
-var dbAnimalsURL = "";
-if (process.env.VCAP_SERVICES) {
-  var env = JSON.parse(process.env.VCAP_SERVICES);
-  dbAnimalsURL = env.cloudantNoSQLDB[0].credentials.url + "/animals";
-}
-else dbAnimalsURL = "http://localhost:5984/animals";
-
 var server = app.listen(appEnv.port, function() {
   console.log('***********************************');
   console.log('listening:', appEnv.url);
@@ -39,12 +31,38 @@ var server = app.listen(appEnv.port, function() {
 module.exports = server;
 
 /* ----------------------------------------------------------------------------------------- */
+// Init database
+
+var cloudant;
+var dbCredentials = {
+	dbName : 'animals'
+};
+
+function initDBConnection() {
+
+  if(process.env.VCAP_SERVICES) {
+    // Set the dbURL from VCAP_SERVICES
+    dbCredentials.dbURL = appEnv.getServiceURL("sandbox-cloudant-cloudantNoSQLDB");
+    // Init cloudant
+    cloudant = require('cloudant')(dbCredentials.dbURL);
+    // Use the database
+    db = cloudant.use(dbCredentials.dbName);
+  } else {
+    // No VCAP_SERVICES...
+    console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
+  }
+}
+
+initDBConnection();
+
+/* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
 app.get('/rangers', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/rangers/_all_docs?include_docs=true',
+    //uri: process.env.CLOUDANT + '/rangers/_all_docs?include_docs=true',
+    uri: dbCredentials.dbURL + '/rangers/_all_docs?include_docs=true',
     method: 'get',
     json: true
   };
@@ -95,7 +113,8 @@ app.get('/jericho', function(req, res){
 
 app.post('/biodata', function(req, res){
   var json_data = {
-    uri: 'https://41657966-6f0c-4a97-9750-15268f2138ac-bluemix:842467a167517a39db77b8cfe4ad5eefe047af67176fe337ad24190b479aa7c6@41657966-6f0c-4a97-9750-15268f2138ac-bluemix.cloudant.com/animals/00476a2b354918c86279ffcf5e0d4405',
+    //uri: 'https://41657966-6f0c-4a97-9750-15268f2138ac-bluemix:842467a167517a39db77b8cfe4ad5eefe047af67176fe337ad24190b479aa7c6@41657966-6f0c-4a97-9750-15268f2138ac-bluemix.cloudant.com/animals/00476a2b354918c86279ffcf5e0d4405',
+    uri: dbAnimalsURL,
     method: 'get',
     json: true
   };
