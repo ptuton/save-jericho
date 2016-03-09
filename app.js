@@ -42,7 +42,7 @@ function initDBConnection() {
 
   if(process.env.VCAP_SERVICES) {
     // Set the dbURL from VCAP_SERVICES
-    dbCredentials.dbURL = appEnv.getServiceURL("sandbox-cloudant-cloudantNoSQLDB");
+    dbCredentials.dbURL = appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB");
     // Init cloudant
     cloudant = require('cloudant')(dbCredentials.dbURL);
     // Use the database
