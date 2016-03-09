@@ -34,6 +34,7 @@ module.exports = server;
 // Init database
 
 var cloudant;
+var db;
 var dbCredentials = {
 	dbName: 'animals',
   dbURL: ''
@@ -48,7 +49,7 @@ function initDBConnection(){
     // Init cloudant
     cloudant = require('cloudant')(dbCredentials.dbURL);
     // Use the database
-    db = cloudant.use(dbCredentials.dbName);
+    db = cloudant.db.use(dbCredentials.dbName);
   } else {
     // No VCAP_SERVICES...
     console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
