@@ -77,10 +77,11 @@ app.get('/rangers', function(req, res){
   });
 */
   dbRangers.db.list(function(err, response) {
-		if (!err) {
-			console.log(response);
-      res.render('rangers', response);
-		}
+    if (err) {
+      throw err;
+    }
+    console.log(response);
+    res.render('rangers', response);
 	});
 });
 
