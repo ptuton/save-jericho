@@ -104,7 +104,7 @@ app.post('/biodata', function(req, res){
 //  var data = {};
 
   var data = {
-    labels: ["Hi!", "February", "March", "April", "May", "June", "July"],
+    labels: ["Janurary", "February", "March", "April", "May", "June", "July"],
     datasets: [
           {
               label: "Ambient Temp",
