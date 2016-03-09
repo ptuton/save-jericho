@@ -76,7 +76,7 @@ app.get('/rangers', function(req, res){
     res.render('rangers', body);
   });
 */
-  dbRangers.list(function(err, response) {
+  dbRangers.db.list(function(err, response) {
 		if (!err) {
 			console.log(response);
       res.render('rangers', response);
