@@ -31,63 +31,29 @@ var server = app.listen(appEnv.port, function() {
 module.exports = server;
 
 /* ----------------------------------------------------------------------------------------- */
-// Init database
+// Cloudant
 
-var cloudant;
-var cloudantURL;
-var dbAnimals = {
-	dbName: 'animals'
-};
-var dbRangers = {
-  dbName: 'rangers'
-}
-
-function initDBConnection(){
-
-  if(process.env.VCAP_SERVICES){
-    // Set the dbURL from VCAP_SERVICES
-    cloudantURL = appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB");
-    console.log(cloudantURL);
-    // Init cloudant
-    cloudant = require('cloudant')(cloudantURL);
-    // Use the database
-    dbAnimals.db = cloudant.db.use(dbAnimals.dbName);
-    dbRangers.db = cloudant.db.use(dbRangers.dbName);
-  } else {
-    // No VCAP_SERVICES...
-    console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
-  }
-}
-
-initDBConnection();
+var dotenv = require('dotenv').config();
+var cloudantURL = process.env.VCAP_SERVICES ? appEnv.getServiceURL("pt-sensortag-cloudantNoSQLDB") : process.env.CLOUDANT;;
 
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 /* ----------------------------------------------------------------------------------------- */
 
 app.get('/rangers', function(req, res){
-/*
   var o = {
-    uri: process.env.CLOUDANT + '/rangers/_all_docs?include_docs=true',
+    uri: cloudantURL + '/rangers/_all_docs?include_docs=true',
     method: 'get',
     json: true
   };
   request(o, function(err, response, body){
     res.render('rangers', body);
   });
-*/
-  dbRangers.db.list(function(err, response) {
-    if (err) {
-      throw err;
-    }
-    console.log(JSON.stringify(response));
-    res.render('rangers', response);
-	});
 });
 
 app.post('/rangers', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/rangers',
+    uri: cloudantURL + '/rangers',
     method: 'post',
     body: req.body,
     json: true
@@ -100,7 +66,7 @@ app.post('/rangers', function(req, res){
 
 app.get('/ranger/:id', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/rangers/' + req.params.id,
+    uri: cloudantURL + '/rangers/' + req.params.id,
     method: 'get',
     json: true
   };
@@ -111,7 +77,7 @@ app.get('/ranger/:id', function(req, res){
 
 app.put('/ranger/:id', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/rangers/' + req.params.id,
+    uri: cloudantURL + '/rangers/' + req.params.id,
     method: 'put',
     body: req.body,
     json: true
@@ -189,7 +155,7 @@ app.post('/message', function(req, res){
 
 app.put('/people/:id', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/people/' + req.params.id,
+    uri: cloudantURL + '/people/' + req.params.id,
     method: 'put',
     body: req.body,
     json: true
@@ -201,7 +167,7 @@ app.put('/people/:id', function(req, res){
 
 app.get('/people/:id', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/people/' + req.params.id,
+    uri: cloudantURL + '/people/' + req.params.id,
     method: 'get',
     json: true
   };
@@ -212,7 +178,7 @@ app.get('/people/:id', function(req, res){
 
 app.get('/people', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/people/_all_docs?include_docs=true',
+    uri: cloudantURL + '/people/_all_docs?include_docs=true',
     method: 'get',
     json: true
   };
@@ -223,7 +189,7 @@ app.get('/people', function(req, res){
 
 app.post('/people', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/people',
+    uri: cloudantURL + '/people',
     method: 'post',
     body: req.body,
     json: true
@@ -235,7 +201,7 @@ app.post('/people', function(req, res){
 
 app.delete('/photos', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/photos/' + req.body._id + '?rev=' + req.body._rev,
+    uri: cloudantURL + '/photos/' + req.body._id + '?rev=' + req.body._rev,
     method: 'delete',
     json: true
   };
@@ -246,7 +212,7 @@ app.delete('/photos', function(req, res){
 
 app.get('/photos', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/photos/_all_docs?include_docs=true',
+    uri: cloudantURL + '/photos/_all_docs?include_docs=true',
     method: 'get',
     json: true
   };
@@ -257,7 +223,7 @@ app.get('/photos', function(req, res){
 
 app.post('/photos', function(req, res){
   var o = {
-    uri: process.env.CLOUDANT + '/photos',
+    uri: cloudantURL + '/photos',
     method: 'post',
     body: req.body,
     json: true
